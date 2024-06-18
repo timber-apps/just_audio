@@ -213,6 +213,8 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
 
     @Override
     public void onMetadata(Metadata metadata) {
+        icyInfo = null;
+
         for (int i = 0; i < metadata.length(); i++) {
             final Metadata.Entry entry = metadata.get(i);
             if (entry instanceof IcyInfo) {
@@ -226,6 +228,8 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
     public void onTracksChanged(Tracks tracks) {
         for (int i = 0; i < tracks.getGroups().size(); i++) {
             TrackGroup trackGroup = tracks.getGroups().get(i).getMediaTrackGroup();
+
+            icyHeaders = null;
 
             for (int j = 0; j < trackGroup.length; j++) {
                 Metadata metadata = trackGroup.getFormat(j).metadata;
@@ -734,6 +738,8 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
         this.initialPos = initialPosition;
         this.initialIndex = initialIndex;
         currentIndex = initialIndex != null ? initialIndex : 0;
+        icyHeaders = null;
+        icyInfo = null;
         switch (processingState) {
         case none:
             break;

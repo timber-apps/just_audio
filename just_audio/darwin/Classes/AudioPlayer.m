@@ -441,8 +441,10 @@
                 @"url": url,
             },
         };
-        [self broadcastPlaybackEvent];
+    } else {
+        _icyMetadata = @{};
     }
+    [self broadcastPlaybackEvent];
 }
 
 - (NSMutableArray<AudioSource *> *)decodeAudioSources:(NSArray *)data {
@@ -598,6 +600,7 @@
     _loadResult = result;
     _processingState = loading;
     _index = (initialIndex != (id)[NSNull null]) ? [initialIndex intValue] : 0;
+    _icyMetadata = @{};
     // Remove previous observers
     if (_indexedAudioSources) {
         for (int i = 0; i < [_indexedAudioSources count]; i++) {
